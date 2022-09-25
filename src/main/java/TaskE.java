@@ -14,18 +14,18 @@ public class TaskE {
     private static void solve(final FastScanner in, final PrintWriter out) {
         Scanner scanner = new Scanner(System.in);
         String str = scanner.nextLine();
-
+        Stack stack = new Stack();
         for (int i = 0; i < str.length(); i++) {
             char element = str.charAt(i);
             if (element == ' ')
                 continue;
             if (isNumber(element)) {
-                Stack.push(Integer.parseInt(String.valueOf(element)));
+                stack.push(Integer.parseInt(String.valueOf(element)));
             } else {
-                Stack.push(applyOperation(element, Stack.pop(), Stack.pop()));
+                stack.push(applyOperation(element, stack.pop(), stack.pop()));
             }
         }
-        out.println(Stack.back());
+        out.println(stack.back());
     }
 
     private static int applyOperation(char operation, int left, int right) {
@@ -46,9 +46,9 @@ public class TaskE {
     }
 
     private static class Stack {
-        private static Node last;
+        private Node last;
 
-        public static void push(int value) {
+        public void push(int value) {
             Node node = new Node(value);
             if (last != null) {
                 node.prev = last;
@@ -56,13 +56,13 @@ public class TaskE {
             last = node;
         }
 
-        public static int pop() {
+        public int pop() {
             int value = last.value;
             last = last.prev;
             return value;
         }
 
-        public static int back() {
+        public int back() {
             return last.value;
         }
 

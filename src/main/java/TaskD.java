@@ -15,20 +15,21 @@ public class TaskD {
     static Map<Character, Character> brackets = Map.of('(', ')', '[', ']', '{', '}');
 
     private static void solve(final FastScanner in, final PrintWriter out) {
+        Stack stack = new Stack();
         String str = in.next();
         for (int i = 0; i < str.length(); i++) {
             if (isOpened(str.charAt(i))) {
-                Stack.push(str.charAt(i));
+                stack.push(str.charAt(i));
             } else {
-                if (Stack.isEmpty() || str.charAt(i) != brackets.get(Stack.last.value)) {
+                if (stack.isEmpty() || str.charAt(i) != brackets.get(stack.last.value)) {
                     out.println("no");
                     return;
                 } else {
-                    Stack.pop();
+                    stack.pop();
                 }
             }
         }
-        if (Stack.size() == 0) {
+        if (stack.size() == 0) {
             out.println("yes");
         } else {
             out.println("no");
@@ -40,10 +41,10 @@ public class TaskD {
     }
 
     private static class Stack {
-        private static Node last;
-        private static int size;
+        private Node last;
+        private int size;
 
-        public static void push(char value) {
+        public void push(char value) {
             size++;
             Node node = new Node(value);
             if (last != null) {
@@ -52,16 +53,16 @@ public class TaskD {
             last = node;
         }
 
-        public static void pop() {
+        public void pop() {
             size--;
             last = last.prev;
         }
 
-        public static int size() {
+        public int size() {
             return size;
         }
 
-        public static boolean isEmpty() {
+        public boolean isEmpty() {
             return size == 0;
         }
 

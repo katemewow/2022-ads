@@ -12,33 +12,33 @@ public class TaskB {
 
     private static void solve(final FastScanner in, final PrintWriter out) {
         String command;
-
+        Queue queue = new Queue();
         while (true) {
             command = in.next();
             switch (command) {
                 case "push" -> {
-                    Queue.push(in.nextInt());
+                    queue.push(in.nextInt());
                     out.println("ok");
                 }
                 case "pop" -> {
-                    if (Queue.first == null) {
+                    if (queue.first == null) {
                         out.println("error");
                     } else {
-                        out.println(Queue.pop());
+                        out.println(queue.pop());
                     }
                 }
                 case "front" -> {
-                    if (Queue.first == null) {
+                    if (queue.first == null) {
                         out.println("error");
                     } else {
-                        out.println(Queue.front());
+                        out.println(queue.front());
                     }
                 }
                 case "size" -> {
-                    out.println(Queue.size());
+                    out.println(queue.size());
                 }
                 case "clear" -> {
-                    Queue.clear();
+                    queue.clear();
                     out.println("ok");
                 }
                 case "exit" -> {
@@ -50,11 +50,11 @@ public class TaskB {
     }
 
     private static class Queue{
-        private static Node first;
-        private static Node last;
-        private static int size;
+        private Node first;
+        private Node last;
+        private int size;
 
-        public static void push(int value){
+        public void push(int value){
             size++;
             if (first == null){
                 first = new Node(value);
@@ -65,22 +65,22 @@ public class TaskB {
             last = last.next;
         }
 
-        public static int pop(){
+        public int pop(){
             size--;
             int value = first.value;
             first = first.next;
             return value;
         }
 
-        public static int front(){
+        public int front(){
             return first.value;
         }
 
-        public static int size(){
+        public int size(){
             return size;
         }
 
-        public static void clear(){
+        public void clear(){
             first = null;
             last = null;
             size = 0;

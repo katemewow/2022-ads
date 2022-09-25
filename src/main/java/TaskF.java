@@ -12,51 +12,51 @@ public class TaskF {
 
     private static void solve(final FastScanner in, final PrintWriter out) {
         String command;
-
+        Deque deque = new Deque();
         while (true) {
             command = in.next();
             switch (command) {
                 case "push_front" -> {
-                    Deque.pushFront(in.nextInt());
+                    deque.pushFront(in.nextInt());
                     out.println("ok");
                 }
                 case "push_back" -> {
-                    Deque.pushBack(in.nextInt());
+                    deque.pushBack(in.nextInt());
                     out.println("ok");
                 }
                 case "pop_front" -> {
-                    if (Deque.last == null) {
+                    if (deque.last == null) {
                         out.println("error");
                     } else {
-                        out.println(Deque.popFront());
+                        out.println(deque.popFront());
                     }
                 }
                 case "pop_back" -> {
-                    if (Deque.last == null) {
+                    if (deque.last == null) {
                         out.println("error");
                     } else {
-                        out.println(Deque.popBack());
+                        out.println(deque.popBack());
                     }
                 }
                 case "front" -> {
-                    if (Deque.last == null) {
+                    if (deque.last == null) {
                         out.println("error");
                     } else {
-                        out.println(Deque.front());
+                        out.println(deque.front());
                     }
                 }
                 case "back" -> {
-                    if (Deque.last == null) {
+                    if (deque.last == null) {
                         out.println("error");
                     } else {
-                        out.println(Deque.back());
+                        out.println(deque.back());
                     }
                 }
                 case "size" -> {
-                    out.println(Deque.size());
+                    out.println(deque.size());
                 }
                 case "clear" -> {
-                    Deque.clear();
+                    deque.clear();
                     out.println("ok");
                 }
                 case "exit" -> {
@@ -68,11 +68,11 @@ public class TaskF {
     }
 
     private static class Deque {
-        private static Node first;
-        private static Node last;
-        private static int size;
+        private Node first;
+        private Node last;
+        private int size;
 
-        public static void pushFront(int value) {
+        public void pushFront(int value) {
             size++;
             if (first == null) {
                 first = new Node(value);
@@ -86,7 +86,7 @@ public class TaskF {
 
         }
 
-        public static void pushBack(int value) {
+        public void pushBack(int value) {
             size++;
             if (first == null) {
                 first = new Node(value);
@@ -100,7 +100,7 @@ public class TaskF {
 
         }
 
-        public static int popFront() {
+        public int popFront() {
             size--;
             int value = first.value;
             if (size == 0) {
@@ -113,7 +113,7 @@ public class TaskF {
             return value;
         }
 
-        public static int popBack() {
+        public int popBack() {
             size--;
             int value = last.value;
             if (size == 0) {
@@ -126,19 +126,19 @@ public class TaskF {
             return value;
         }
 
-        public static int front() {
+        public int front() {
             return first.value;
         }
 
-        public static int back() {
+        public int back() {
             return last.value;
         }
 
-        public static int size() {
+        public int size() {
             return size;
         }
 
-        public static void clear() {
+        public void clear() {
             first = null;
             last = null;
             size = 0;

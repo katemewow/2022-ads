@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.Queue;
 import java.util.StringTokenizer;
 
 public class TaskC {
@@ -12,33 +13,33 @@ public class TaskC {
 
     private static void solve(final FastScanner in, final PrintWriter out) {
         String command;
-
+        Stack stack = new Stack();
         while (true) {
             command = in.next();
             switch (command) {
                 case "push" -> {
-                    Stack.push(in.nextInt());
+                    stack.push(in.nextInt());
                     out.println("ok");
                 }
                 case "pop" -> {
-                    if (Stack.last == null) {
+                    if (stack.last == null) {
                         out.println("error");
                     } else {
-                        out.println(Stack.pop());
+                        out.println(stack.pop());
                     }
                 }
                 case "back" -> {
-                    if (Stack.last == null) {
+                    if (stack.last == null) {
                         out.println("error");
                     } else {
-                        out.println(Stack.back());
+                        out.println(stack.back());
                     }
                 }
                 case "size" -> {
-                    out.println(Stack.size());
+                    out.println(stack.size());
                 }
                 case "clear" -> {
-                    Stack.clear();
+                    stack.clear();
                     out.println("ok");
                 }
                 case "exit" -> {
@@ -50,10 +51,10 @@ public class TaskC {
     }
 
     private static class Stack {
-        private static Node last;
-        private static int size;
+        private Node last;
+        private int size;
 
-        public static void push(int value) {
+        public void push(int value) {
             size++;
             Node node = new Node(value);
             if (last != null) {
@@ -62,22 +63,22 @@ public class TaskC {
             last = node;
         }
 
-        public static int pop() {
+        public int pop() {
             size--;
             int value = last.value;
             last = last.prev;
             return value;
         }
 
-        public static int back() {
+        public int back() {
             return last.value;
         }
 
-        public static int size() {
+        public int size() {
             return size;
         }
 
-        public static void clear() {
+        public void clear() {
             last = null;
             size = 0;
         }
